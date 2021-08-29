@@ -1,0 +1,41 @@
+# Molecular dynamics NPT script with class2 ff for simulated polymerization
+
+# System
+units            real
+atom_style       full
+dimension        3
+newton           on
+boundary         p p p
+
+# Styles
+pair_style       lj/class2/coul/long 15.0
+pair_modify      shift no mix sixthpower
+kspace_style     ewald 1.0e-4
+bond_style       class2
+angle_style      class2
+dihedral_style   class2
+improper_style   class2
+special_bonds    lj 0 0 1 coul 0 0 1
+
+# Data file input
+read_data        data.lmps
+
+# Settings
+dielectric       1.0
+neighbor         2.0 bin
+neigh_modify     delay 0 every 1 check yes
+timestep         1.0
+run_style        verlet
+
+# Output
+thermo_style     custom step vol temp press etotal pe ke evdwl ecoul ebond eangle edihed eimp
+thermo           500
+
+# MD step
+fix              1 all npt temp 300 300 100.0 iso 1 1 100.0
+velocity         all create 300 58447419
+run              20000
+unfix            1
+
+# Data file output
+write_data       md.lmps
