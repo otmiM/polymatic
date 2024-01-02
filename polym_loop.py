@@ -5,9 +5,6 @@
 # polym_loop.py
 # This file is part of the Polymatic distribution.
 #
-# Author: Lauren J. Abbott
-# Version: 1.1
-# Date: August 16, 2015
 #
 # Description: Controls the simulated polymerization loop of the Polymatic
 # algorithm. Polymerization steps are performed in cycles. After each bond is
